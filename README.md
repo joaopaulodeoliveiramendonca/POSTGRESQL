@@ -68,7 +68,7 @@ INSERT INTO usuarios (nome, idade) VALUES ('João', 30);
 
 SELECT: Consulta dados de uma tabela.
 
-SELECT \* FROM usuarios; 
+SELECT * FROM usuarios; 
 
 DROP TABLE: Exclui uma tabela do banco de dados.
 
@@ -92,7 +92,7 @@ Uma vez que o PostgreSQL esteja instalado, você pode começar a trabalhar com e
 **psql**, você pode iniciar o terminal no diretório onde o PostgreSQL está instalado e digitar:
 
 ```bash
-psql \-U postgres
+psql -U postgres
 ```
 
 Isso abrirá o terminal do PostgreSQL, onde você poderá rodar comandos SQL diretamente.
@@ -122,7 +122,7 @@ Agora que você já configurou o PostgreSQL e aprendeu os conceitos básicos, va
 **CREATE DATABASE**: Cria um novo banco de dados no PostgreSQL.
 
 ```sql
- CREATE DATABASE nome\_do\_banco;
+ CREATE DATABASE nome_do_banco;
 ```
 
 **CREATE TABLE**: Cria uma nova tabela no banco de dados. Aqui, vamos criar uma tabela de exemplo chamada clientes:
@@ -132,14 +132,14 @@ Agora que você já configurou o PostgreSQL e aprendeu os conceitos básicos, va
     id SERIAL PRIMARY KEY,  
     nome VARCHAR(100),  
     email VARCHAR(100),  
-    data\_nascimento DATE  
+    data_nascimento DATE  
 );
 ```
 
 **INSERT INTO**: Insere dados em uma tabela. Exemplo de inserção de um registro na tabela clientes:
 
 ```sql
-INSERT INTO clientes (nome, email, data\_nascimento)  
+INSERT INTO clientes (nome, email, data_nascimento)  
 VALUES ('Maria Silva', 'maria@exemplo.com', '1985-04-12');
 ```
 
@@ -170,7 +170,7 @@ ALTER TABLE clientes ADD COLUMN telefone VARCHAR(15);
 **UPDATE**: Atualiza os dados de uma tabela. Exemplo de como alterar o email de um cliente:
 
 ```sql
-UPDATE clientes SET email \= 'novo\_email@exemplo.com' WHERE nome \= 'Maria Silva';
+UPDATE clientes SET email = 'novo_email@exemplo.com' WHERE nome = 'Maria Silva';
 ``` 
 
 **DELETE**: Exclui registros de uma tabela. Exemplo de como excluir um cliente pelo nome:
@@ -235,8 +235,8 @@ A cláusula WHERE permite especificar condições para selecionar apenas os regi
 Exemplo: Encontrar todos os clientes com mais de 30 anos:
 
 ```sql
-SELECT \* FROM clientes  
-WHERE idade \> 30;
+SELECT * FROM clientes  
+WHERE idade > 30;
 ```
 
 ### **Operadores Comuns em WHERE**
@@ -244,28 +244,28 @@ WHERE idade \> 30;
 **BETWEEN**: Usado para filtrar valores dentro de um intervalo.
 
 ```sql
-SELECT \* FROM clientes  
+SELECT * FROM clientes  
 WHERE idade BETWEEN 20 AND 30;
 ```
 
 **IN**: Filtra valores que estão dentro de uma lista específica.
 
 ```sql
-SELECT \* FROM clientes  
+SELECT * FROM clientes  
 WHERE nome IN ('Maria Silva', 'João Souza');
 ```
 
 **LIKE**: Usado para buscar padrões em dados textuais.
 
 ```sql
-SELECT \* FROM clientes  
+SELECT * FROM clientes  
 WHERE nome LIKE 'Maria%';
 ```
 
 **IS NULL**: Filtra registros com valores nulos.
 
 ```sql
-SELECT \* FROM clientes  
+SELECT * FROM clientes  
 WHERE telefone IS NULL;
 ```
 
@@ -274,14 +274,14 @@ WHERE telefone IS NULL;
 **ORDER BY**: Ordena os resultados em ordem crescente ou decrescente. Por padrão, a ordenação é crescente (ASC), mas você pode especificar a ordenação decrescente (DESC).
 
 ```sql
-SELECT \* FROM clientes  
+SELECT * FROM clientes  
 ORDER BY nome DESC;
 ```
 
 **LIMIT**: Limita o número de registros retornados. Exemplo para obter apenas os 5 primeiros resultados:
 
 ```sql
-SELECT \* FROM clientes  
+SELECT * FROM clientes  
 LIMIT 5;
 ```
 
@@ -292,7 +292,7 @@ Funções agregadas são usadas para realizar cálculos sobre um conjunto de dad
 **COUNT()**: Conta o número de registros que atendem a uma condição.
 
 ```sql
-SELECT COUNT(\*) FROM clientes;
+SELECT COUNT(*) FROM clientes;
 ```
 
 **SUM()**: Soma os valores de uma coluna numérica.
@@ -369,9 +369,9 @@ Exemplo: Criando uma tabela pedidos que se relaciona com a tabela clientes atrav
 ```sql
 CREATE TABLE pedidos (  
     id SERIAL PRIMARY KEY,  
-    cliente\_id INT,  
-    data\_pedido DATE,  
-    FOREIGN KEY (cliente\_id) REFERENCES clientes(id)  
+    cliente_id INT,  
+    data_pedido DATE,  
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)  
 );
 ```
 
@@ -381,7 +381,7 @@ Aqui, o campo cliente_id em pedidos é uma chave estrangeira que faz referência
 
 **Um para Muitos (1:N)**: Um cliente pode fazer muitos pedidos, mas cada pedido pertence a um único cliente.
 
-**Muitos para Muitos (N:M)**: Um exemplo seria uma tabela de alunos e uma tabela de cursos. Um aluno pode se matricular em muitos cursos, e um curso pode ter muitos alunos. Para isso, você cria uma tabela intermediária, como alunos\_cursos.
+**Muitos para Muitos (N:M)**: Um exemplo seria uma tabela de alunos e uma tabela de cursos. Um aluno pode se matricular em muitos cursos, e um curso pode ter muitos alunos. Para isso, você cria uma tabela intermediária, como alunos_cursos.
 
 Exemplo de relacionamento **muitos para muitos**:
 
@@ -396,12 +396,12 @@ CREATE TABLE alunos (
     nome VARCHAR(100)  
 );
 
-CREATE TABLE alunos\_cursos (  
-    aluno\_id INT,  
-    curso\_id INT,  
-    PRIMARY KEY (aluno\_id, curso\_id),  
-    FOREIGN KEY (aluno\_id) REFERENCES alunos(id),  
-    FOREIGN KEY (curso\_id) REFERENCES cursos(id)  
+CREATE TABLE alunos_cursos (  
+    aluno_id INT,  
+    curso_id INT,  
+    PRIMARY KEY (aluno_id, curso_id),  
+    FOREIGN KEY (aluno_id) REFERENCES alunos(id),  
+    FOREIGN KEY (curso_id) REFERENCES cursos(id)  
 );
 ```
 
@@ -471,12 +471,12 @@ Os **joins** são usados para combinar registros de duas ou mais tabelas, com ba
 
 O **INNER JOIN** retorna apenas os registros que têm correspondência em ambas as tabelas.
 
-Exemplo: Vamos unir as tabelas clientes e pedidos, onde o id\_cliente da tabela pedidos corresponde ao id da tabela clientes:
+Exemplo: Vamos unir as tabelas clientes e pedidos, onde o id_cliente da tabela pedidos corresponde ao id da tabela clientes:
 
 ```sql
-SELECT clientes.nome, pedidos.data\_pedido  
+SELECT clientes.nome, pedidos.data_pedido  
 FROM clientes  
-INNER JOIN pedidos ON clientes.id \= pedidos.cliente\_id;
+INNER JOIN pedidos ON clientes.id = pedidos.cliente_id;
 ```
 
 Esse comando vai retornar os nomes dos clientes e as datas de seus pedidos, mas apenas para os clientes que têm pedidos registrados.
@@ -488,12 +488,12 @@ O **LEFT JOIN** (ou **LEFT OUTER JOIN**) retorna todos os registros da tabela da
 Exemplo:
 
 ```sql
-SELECT clientes.nome, pedidos.data\_pedido  
+SELECT clientes.nome, pedidos.data_pedido  
 FROM clientes  
-LEFT JOIN pedidos ON clientes.id \= pedidos.cliente\_id;
+LEFT JOIN pedidos ON clientes.id = pedidos.cliente_id;
 ```
 
-Esse comando retorna todos os clientes, mesmo aqueles que não têm pedidos. Para esses clientes, a coluna data\_pedido será NULL.
+Esse comando retorna todos os clientes, mesmo aqueles que não têm pedidos. Para esses clientes, a coluna data_pedido será NULL.
 
 ### RIGHT JOIN
 
@@ -502,9 +502,9 @@ O **RIGHT JOIN** (ou **RIGHT OUTER JOIN**) é similar ao LEFT JOIN, mas retorna 
 Exemplo:
 
 ```sql
-SELECT clientes.nome, pedidos.data\_pedido  
+SELECT clientes.nome, pedidos.data_pedido  
 FROM clientes  
-RIGHT JOIN pedidos ON clientes.id \= pedidos.cliente\_id;
+RIGHT JOIN pedidos ON clientes.id = pedidos.cliente_id;
 ```
 
 Esse comando retorna todos os pedidos, incluindo aqueles feitos por clientes que talvez não estejam mais na tabela clientes (caso tenham sido deletados, por exemplo).
@@ -516,9 +516,9 @@ O **FULL OUTER JOIN** retorna todos os registros quando há uma correspondência
 Exemplo:
 
 ```sql
-SELECT clientes.nome, pedidos.data\_pedido  
+SELECT clientes.nome, pedidos.data_pedido  
 FROM clientes  
-FULL OUTER JOIN pedidos ON clientes.id \= pedidos.cliente\_id;
+FULL OUTER JOIN pedidos ON clientes.id = pedidos.cliente_id;
 ```
 
 Esse comando retorna todos os clientes e todos os pedidos, independentemente de terem correspondência na outra tabela.
@@ -536,7 +536,7 @@ Exemplo:
 
 ```sql
 SELECT nome,   
-       (SELECT COUNT(\*) FROM pedidos WHERE pedidos.cliente\_id \= clientes.id) AS num\_pedidos  
+       (SELECT COUNT(*) FROM pedidos WHERE pedidos.cliente_id = clientes.id) AS num_pedidos  
 FROM clientes;
 ```
 
@@ -551,10 +551,10 @@ Exemplo:
 ```sql
 SELECT nome  
 FROM clientes  
-WHERE id IN (SELECT cliente\_id FROM pedidos WHERE data\_pedido \> '2025-01-01');
+WHERE id IN (SELECT cliente_id FROM pedidos WHERE data_pedido > '2025-01-01');
 ```
 
-Esse comando retorna os nomes dos clientes que fizeram pedidos após 1º de janeiro de 2025\.
+Esse comando retorna os nomes dos clientes que fizeram pedidos após 1º de janeiro de 2025.
 
 ### Subconsulta com EXISTS
 
@@ -565,7 +565,7 @@ Exemplo:
 ```sql
 SELECT nome  
 FROM clientes  
-WHERE EXISTS (SELECT 1 FROM pedidos WHERE pedidos.cliente\_id \= clientes.id);
+WHERE EXISTS (SELECT 1 FROM pedidos WHERE pedidos.cliente_id = clientes.id);
 ```
 
 Esse comando retorna os nomes dos clientes que têm pelo menos um pedido.
@@ -579,13 +579,13 @@ Agora que já aprendemos os conceitos básicos de joins e subconsultas, vamos co
 Exemplo: Encontrar o total de pedidos feitos por cada cliente.
 
 ```sql
-SELECT clientes.nome, COUNT(pedidos.id) AS total\_pedidos  
+SELECT clientes.nome, COUNT(pedidos.id) AS total_pedidos  
 FROM clientes  
-LEFT JOIN pedidos ON clientes.id \= pedidos.cliente\_id  
+LEFT JOIN pedidos ON clientes.id = pedidos.cliente_id  
 GROUP BY clientes.nome;
 ```
 
-Esse comando retorna o nome de cada cliente e o número total de pedidos feitos por ele. Se o cliente não tiver pedidos, o valor será 0\.
+Esse comando retorna o nome de cada cliente e o número total de pedidos feitos por ele. Se o cliente não tiver pedidos, o valor será 0.
 
 ## Consultas com GROUP BY e HAVING
 
@@ -594,11 +594,11 @@ Vamos usar GROUP BY e HAVING para filtrar resultados após o agrupamento.
 Exemplo: Encontrar os clientes que fizeram mais de 3 pedidos:
 
 ```sql
-SELECT clientes.nome, COUNT(pedidos.id) AS total\_pedidos  
+SELECT clientes.nome, COUNT(pedidos.id) AS total_pedidos  
 FROM clientes  
-INNER JOIN pedidos ON clientes.id \= pedidos.cliente\_id  
+INNER JOIN pedidos ON clientes.id = pedidos.cliente_id  
 GROUP BY clientes.nome  
-HAVING COUNT(pedidos.id) \> 3;
+HAVING COUNT(pedidos.id) > 3;
 ```
 
 Esse comando retorna os nomes dos clientes que fizeram mais de 3 pedidos.
@@ -684,18 +684,18 @@ Exemplo: Vamos particionar uma tabela vendas por mês.
 ```sql
 CREATE TABLE vendas (  
     id SERIAL PRIMARY KEY,  
-    data\_venda DATE,  
+    data_venda DATE,  
     valor DECIMAL  
-) PARTITION BY RANGE (data\_venda);
+) PARTITION BY RANGE (data_venda);
 ```
 
 2. **Criando partições**:
 
 ```sql
-CREATE TABLE vendas\_2023\_01 PARTITION OF vendas  
+CREATE TABLE vendas_2023_01 PARTITION OF vendas  
     FOR VALUES FROM ('2023-01-01') TO ('2023-02-01');
 
-CREATE TABLE vendas\_2023\_02 PARTITION OF vendas  
+CREATE TABLE vendas_2023_02 PARTITION OF vendas  
     FOR VALUES FROM ('2023-02-01') TO ('2023-03-01');
 ```
 
@@ -716,10 +716,10 @@ As funções em PostgreSQL podem ser criadas usando a linguagem **PL/pgSQL**, um
 Aqui está um exemplo de uma função simples que calcula o desconto em um valor de compra:
 
 ```sql
-CREATE OR REPLACE FUNCTION calcular\_desconto(valor DECIMAL, percentual DECIMAL)  
+CREATE OR REPLACE FUNCTION calcular_desconto(valor DECIMAL, percentual DECIMAL)  
 RETURNS DECIMAL AS $$  
 BEGIN  
-    RETURN valor \- (valor \* percentual / 100);  
+    RETURN valor - (valor * percentual / 100);  
 END;  
 $$ LANGUAGE plpgsql;
 ```
@@ -731,7 +731,7 @@ Essa função recebe dois parâmetros: valor (o valor da compra) e percentual (o
 Para usar a função, basta chamá-la com os parâmetros necessários:
 
 ```sql
-SELECT calcular_desconto(1000, 10);  \-- Isso retorna 900
+SELECT calcular_desconto(1000, 10);  -- Isso retorna 900
 ```
 
 ### Criando Triggers
@@ -745,10 +745,10 @@ Exemplo: Vamos criar uma trigger que registra quando um cliente é atualizado na
 1. **Função da Trigger**:
 
 ```sql
-CREATE OR REPLACE FUNCTION log\_alteracao\_cliente()  
+CREATE OR REPLACE FUNCTION log_alteracao_cliente()  
 RETURNS TRIGGER AS $$  
 BEGIN  
-    INSERT INTO log\_cliente\_alterado (cliente\_id, data\_alteracao)  
+    INSERT INTO log_cliente_alterado (cliente_id, data_alteracao)  
     VALUES (NEW.id, NOW());  
     RETURN NEW;  
 END;  
@@ -760,13 +760,13 @@ Essa função insere um registro na tabela log_cliente_alterado toda vez que um 
 **Definindo a Trigger**:
 
 ```sql
-CREATE TRIGGER trigger\_alteracao\_cliente  
+CREATE TRIGGER trigger_alteracao_cliente  
 AFTER UPDATE ON clientes  
 FOR EACH ROW  
-EXECUTE FUNCTION log\_alteracao\_cliente();
+EXECUTE FUNCTION log_alteracao_cliente();
 ```
 
-A trigger será executada **após** a atualização de um cliente, e registrará a alteração na tabela log\_cliente\_alterado.
+A trigger será executada **após** a atualização de um cliente, e registrará a alteração na tabela log_cliente_alterado.
 
 ### Prática com Funções e Triggers
 
@@ -816,11 +816,11 @@ CREATE DATABASE meu_banco_restaurado;
 psql meu_banco_restaurado < backup_meu_banco.sql
 ```
 
-Isso irá aplicar o conteúdo do backup ao banco de dados meu\_banco\_restaurado.
+Isso irá aplicar o conteúdo do backup ao banco de dados meu_banco_restaurado.
 
 ### Backup e Restauração em Ambiente de Produção
 
-Para ambientes de produção, o PostgreSQL também oferece opções para backups incrementais e backups físicos utilizando ferramentas como pg\_basebackup, que cria uma cópia completa do banco de dados em tempo real.
+Para ambientes de produção, o PostgreSQL também oferece opções para backups incrementais e backups físicos utilizando ferramentas como pg_basebackup, que cria uma cópia completa do banco de dados em tempo real.
 
 ### Controle de Acesso e Permissões
 
@@ -828,7 +828,7 @@ A segurança no PostgreSQL depende do gerenciamento adequado de usuários e perm
 
 ### Criando um Novo Usuário
 
-Para criar um novo usuário no PostgreSQL, você pode usar o comando CREATE USER. Por exemplo, para criar um usuário chamado novo\_usuario com uma senha:
+Para criar um novo usuário no PostgreSQL, você pode usar o comando CREATE USER. Por exemplo, para criar um usuário chamado novo_usuario com uma senha:
 
 ```sql
 CREATE USER novo_usuario WITH PASSWORD 'senha_forte';
@@ -848,7 +848,7 @@ Você pode conceder permissões a usuários para acessar e manipular dados no ba
 
 Exemplo: Concedendo permissões de leitura e escrita na tabela clientes para o usuário novo_usuario:
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON clientes TO novo\_usuario;
+GRANT SELECT, INSERT, UPDATE, DELETE ON clientes TO novo_usuario;
 
 ### Revogando Permissões
 
@@ -872,8 +872,8 @@ GRANT SELECT, INSERT, UPDATE ON clientes TO gerente;
 Agora, ao criar um usuário, você pode atribuí-lo a essa role:
 
 ```sql
-CREATE USER novo\_usuario WITH PASSWORD 'senha\_forte';  
-GRANT gerente TO novo\_usuario;
+CREATE USER novo_usuario WITH PASSWORD 'senha_forte';  
+GRANT gerente TO novo_usuario;
 ```
 
 ### Segurança com SSL e Criptografia
@@ -882,7 +882,7 @@ Segurança adicional pode ser implementada com o uso de **SSL** (Secure Sockets 
 
 ### **Configuração de SSL**
 
-O PostgreSQL oferece suporte a conexões seguras usando SSL. Para habilitar o SSL no PostgreSQL, você precisa configurar os arquivos postgresql.conf e pg\_hba.conf.
+O PostgreSQL oferece suporte a conexões seguras usando SSL. Para habilitar o SSL no PostgreSQL, você precisa configurar os arquivos postgresql.conf e pg_hba.conf.
 
 1. No arquivo postgresql.conf, ative o SSL:
 
@@ -914,8 +914,8 @@ CREATE EXTENSION pgcrypto;
 
 ```sql
 UPDATE clientes  
-SET numero\_cartao \= pgp\_sym\_encrypt('1234567890123456', 'minha\_chave\_secreta')  
-WHERE id \= 1;
+SET numero_cartao = pgp_sym_encrypt('1234567890123456', 'minha_chave_secreta')  
+WHERE id = 1;
 ```
 
 Esse comando criptografa o número do cartão de crédito usando a chave fornecida.
@@ -935,8 +935,8 @@ Exemplo de uma transação simples:
 ```sql
 BEGIN;
 
-UPDATE conta SET saldo \= saldo \- 100 WHERE id \= 1;  
-UPDATE conta SET saldo \= saldo \+ 100 WHERE id \= 2;
+UPDATE conta SET saldo = saldo - 100 WHERE id = 1;  
+UPDATE conta SET saldo = saldo + 100 WHERE id = 2;
 
 COMMIT;
 ```
@@ -992,7 +992,7 @@ GROUP BY cliente_id;
 Você pode consultar a view como se fosse uma tabela:
 
 ```sql
-SELECT \* FROM saldo\_cliente;
+SELECT * FROM saldo_cliente;
 ```
 
 ### Materialized Views
@@ -1002,10 +1002,10 @@ Ao contrário das views comuns, as **materialized views** armazenam o resultado 
 Exemplo de criação de uma materialized view:
 
 ```sql
-CREATE MATERIALIZED VIEW saldo\_cliente\_materializado AS  
-SELECT cliente\_id, SUM(valor) AS total\_saldo  
+CREATE MATERIALIZED VIEW saldo_cliente_materializado AS  
+SELECT cliente_id, SUM(valor) AS total_saldo  
 FROM transacoes  
-GROUP BY cliente\_id;
+GROUP BY cliente_id;
 ```
 
 Para atualizar a materialized view:
@@ -1036,26 +1036,26 @@ Exemplo de como criar uma tabela para armazenar coordenadas geográficas:
 CREATE TABLE locais (  
     id SERIAL PRIMARY KEY,  
     nome VARCHAR(100),  
-    coordenadas GEOMETRY(Point, 4326\)  
+    coordenadas GEOMETRY(Point, 4326)  
 );
 ```
 
-### pg\_trgm: Busca de Texto
+### pg_trgm: Busca de Texto
 
-A extensão **pg\_trgm** permite realizar buscas de texto mais eficientes, utilizando trigramas (sequências de três caracteres).
+A extensão **pg_trgm** permite realizar buscas de texto mais eficientes, utilizando trigramas (sequências de três caracteres).
 
-Para instalar o pg\_trgm:
+Para instalar o pg_trgm:
 
 ```sql
-CREATE EXTENSION pg\_trgm;
+CREATE EXTENSION pg_trgm;
 ```
 
 Isso permite fazer buscas eficientes em colunas de texto com funções como LIKE e ILIKE.
 
-Exemplo de consulta que usa pg\_trgm para encontrar palavras semelhantes:
+Exemplo de consulta que usa pg_trgm para encontrar palavras semelhantes:
 
 ```sql
-SELECT \* FROM produtos  
+SELECT * FROM produtos  
 WHERE nome % 'laptop';
 ```
 
@@ -1070,7 +1070,7 @@ O EXPLAIN ANALYZE fornece um plano de execução real, mostrando como a consulta
 Exemplo:
 
 ```sql
-EXPLAIN ANALYZE SELECT \* FROM clientes WHERE idade \> 30;
+EXPLAIN ANALYZE SELECT * FROM clientes WHERE idade > 30;
 ```
 
 Isso retornará detalhes sobre o tempo de execução e como o PostgreSQL encontrou os dados (usando índice, varredura sequencial, etc.).
@@ -1142,62 +1142,62 @@ Agora, você deve começar a criar as tabelas e relações no PostgreSQL. Aqui e
 1. **Criando Tabelas**:
 
 ```sql
-\-- Tabela de autores  
+-- Tabela de autores  
 CREATE TABLE autores (  
     id SERIAL PRIMARY KEY,  
     nome VARCHAR(100),  
     nacionalidade VARCHAR(50)  
 );
 
-\-- Tabela de livros  
+-- Tabela de livros  
 CREATE TABLE livros (  
     id SERIAL PRIMARY KEY,  
     titulo VARCHAR(255),  
-    autor\_id INT,  
-    ano\_publicacao INT,  
+    autor_id INT,  
+    ano_publicacao INT,  
     categoria VARCHAR(50),  
-    FOREIGN KEY (autor\_id) REFERENCES autores(id)  
+    FOREIGN KEY (autor_id) REFERENCES autores(id)  
 );
 
-\-- Tabela de membros  
+-- Tabela de membros  
 CREATE TABLE membros (  
     id SERIAL PRIMARY KEY,  
     nome VARCHAR(100),  
     email VARCHAR(100)  
 );
 
-\-- Tabela de empréstimos  
+-- Tabela de empréstimos  
 CREATE TABLE emprestimos (  
     id SERIAL PRIMARY KEY,  
-    livro\_id INT,  
-    membro\_id INT,  
-    data\_emprestimo DATE,  
-    data\_devolucao DATE,  
-    FOREIGN KEY (livro\_id) REFERENCES livros(id),  
-    FOREIGN KEY (membro\_id) REFERENCES membros(id)  
+    livro_id INT,  
+    membro_id INT,  
+    data_emprestimo DATE,  
+    data_devolucao DATE,  
+    FOREIGN KEY (livro_id) REFERENCES livros(id),  
+    FOREIGN KEY (membro_id) REFERENCES membros(id)  
 );
 ```
 
 2. **Inserindo Dados**:
 
 ```sql
-\-- Inserindo autores  
+-- Inserindo autores  
 INSERT INTO autores (nome, nacionalidade) VALUES  
 ('J.K. Rowling', 'Britânica'),  
 ('George Orwell', 'Britânica');
 
-\-- Inserindo livros  
-INSERT INTO livros (titulo, autor\_id, ano\_publicacao, categoria) VALUES  
+-- Inserindo livros  
+INSERT INTO livros (titulo, autor_id, ano_publicacao, categoria) VALUES  
 ('Harry Potter e a Pedra Filosofal', 1, 1997, 'Fantasia'),  
 ('1984', 2, 1949, 'Distopia');
 
-\-- Inserindo membros  
+-- Inserindo membros  
 INSERT INTO membros (nome, email) VALUES  
 ('Ana Silva', 'ana@exemplo.com'),  
 ('Carlos Souza', 'carlos@exemplo.com');
 
-\-- Inserindo empréstimos  
-INSERT INTO emprestimos (livro\_id, membro\_id, data\_emprestimo, data\_devolucao) VALUES  
+-- Inserindo empréstimos  
+INSERT INTO emprestimos (livro_id, membro_id, data_emprestimo, data_devolucao) VALUES  
 (1, 1, '2025-09-10', '2025-09-20'),  
 (2, 2, '2025-09-12', '2025-09-22');
 ```
@@ -1208,10 +1208,10 @@ Depois de criar as tabelas e inserir dados, você pode realizar consultas para v
 Exemplo de consulta para listar os livros emprestados:
 
 ```sql
-SELECT livros.titulo, membros.nome, emprestimos.data\_emprestimo, emprestimos.data\_devolucao  
+SELECT livros.titulo, membros.nome, emprestimos.data_emprestimo, emprestimos.data_devolucao  
 FROM emprestimos  
-INNER JOIN livros ON emprestimos.livro\_id \= livros.id  
-INNER JOIN membros ON emprestimos.membro\_id \= membros.id;
+INNER JOIN livros ON emprestimos.livro_id = livros.id  
+INNER JOIN membros ON emprestimos.membro_id = membros.id;
 ```
 
 Esse comando retorna a lista de livros emprestados, juntamente com os membros que os pegaram e as datas de empréstimo e devolução.

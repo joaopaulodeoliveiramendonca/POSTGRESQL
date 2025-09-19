@@ -339,48 +339,53 @@ HAVING COUNT(*) > 2;
 
 # Relacionamentos e Normalização
 
-#### **Dia 15-16: Chaves Primárias e Estrangeiras**
+## Chaves Primárias e Estrangeiras
 
 Um banco de dados relacional é composto por tabelas que podem se relacionar entre si. Vamos aprender como criar esses relacionamentos usando **chaves primárias** e **chaves estrangeiras**.
 
-##### **Chave Primária (Primary Key)**
+### Chave Primária (Primary Key)
 
 A **chave primária** é um campo (ou conjunto de campos) que identifica de forma única cada registro em uma tabela. Não pode haver valores duplicados nem nulos em uma chave primária.
 
 Exemplo: Vamos criar uma tabela clientes com uma chave primária:
 
+```sql
 CREATE TABLE clientes (  
     id SERIAL PRIMARY KEY,  
     nome VARCHAR(100),  
     email VARCHAR(100),  
     idade INT  
 );
+```
 
 O campo id é a chave primária e será único para cada registro da tabela.
 
-##### **Chave Estrangeira (Foreign Key)**
+### Chave Estrangeira (Foreign Key)
 
 A **chave estrangeira** é um campo (ou conjunto de campos) que estabelece um relacionamento entre duas tabelas. Ela faz referência à chave primária de outra tabela.
 
 Exemplo: Criando uma tabela pedidos que se relaciona com a tabela clientes através da chave estrangeira:
 
+```sql
 CREATE TABLE pedidos (  
     id SERIAL PRIMARY KEY,  
     cliente\_id INT,  
     data\_pedido DATE,  
     FOREIGN KEY (cliente\_id) REFERENCES clientes(id)  
 );
+```
 
-Aqui, o campo cliente\_id em pedidos é uma chave estrangeira que faz referência ao campo id de clientes. Isso cria uma relação entre as duas tabelas, garantindo que um pedido sempre esteja vinculado a um cliente existente.
+Aqui, o campo cliente_id em pedidos é uma chave estrangeira que faz referência ao campo id de clientes. Isso cria uma relação entre as duas tabelas, garantindo que um pedido sempre esteja vinculado a um cliente existente.
 
-#### **Relacionamentos entre Tabelas**
+### Relacionamentos entre Tabelas
 
-* **Um para Muitos (1:N)**: Um cliente pode fazer muitos pedidos, mas cada pedido pertence a um único cliente.
+**Um para Muitos (1:N)**: Um cliente pode fazer muitos pedidos, mas cada pedido pertence a um único cliente.
 
-* **Muitos para Muitos (N:M)**: Um exemplo seria uma tabela de alunos e uma tabela de cursos. Um aluno pode se matricular em muitos cursos, e um curso pode ter muitos alunos. Para isso, você cria uma tabela intermediária, como alunos\_cursos.
+**Muitos para Muitos (N:M)**: Um exemplo seria uma tabela de alunos e uma tabela de cursos. Um aluno pode se matricular em muitos cursos, e um curso pode ter muitos alunos. Para isso, você cria uma tabela intermediária, como alunos\_cursos.
 
 Exemplo de relacionamento **muitos para muitos**:
 
+```sql
 CREATE TABLE cursos (  
     id SERIAL PRIMARY KEY,  
     nome VARCHAR(100)  
@@ -398,336 +403,305 @@ CREATE TABLE alunos\_cursos (
     FOREIGN KEY (aluno\_id) REFERENCES alunos(id),  
     FOREIGN KEY (curso\_id) REFERENCES cursos(id)  
 );
+```
 
----
-
-#### **Dia 17-19: Normalização de Banco de Dados**
+### Normalização de Banco de Dados
 
 A **normalização** é o processo de organizar os dados de forma a minimizar redundâncias e melhorar a integridade dos dados. Ela é dividida em várias formas normais, sendo as mais comuns a 1NF, 2NF e 3NF.
 
-##### **1NF (Primeira Forma Normal)**
+### 1NF (Primeira Forma Normal)
 
 Uma tabela está em 1NF quando:
 
-* Todos os campos contêm apenas valores atômicos (sem múltiplos valores em uma célula).
+Todos os campos contêm apenas valores atômicos (sem múltiplos valores em uma célula).
 
-* Não há duplicação de linhas.
+Não há duplicação de linhas.
 
 Exemplo: Uma tabela não normalizada poderia ter múltiplos telefones em uma célula, como:
 
-| Cliente | Telefones |
-| :---- | :---- |
-| João | 123, 456 |
+| Cliente | Telefones     |
+| :------ | :------------ |
+| João    | 123, 456      |
 
 Para normalizar isso, você deve dividir os telefones em registros separados:
 
 | Cliente | Telefone |
-| :---- | :---- |
-| João | 123 |
-| João | 456 |
+| :------ | :--------|
+| João    | 123      |
+| João    | 456      |
 
-##### **2NF (Segunda Forma Normal)**
+
+### 2NF (Segunda Forma Normal)
 
 Uma tabela está em 2NF quando:
 
-* Está em 1NF.
+Está em 1NF.
 
-* Todos os atributos não-chave dependem completamente da chave primária (não há dependências parciais).
+Todos os atributos não-chave dependem completamente da chave primária (não há dependências parciais).
 
-Exemplo: Suponha que temos uma tabela de pedidos onde a chave primária é composta por id\_cliente e id\_pedido. Se você armazenar o nome do cliente em cada linha da tabela de pedidos, isso viola a 2NF, pois o nome do cliente depende apenas do id\_cliente, e não da chave primária completa. A solução seria separar o nome do cliente em uma tabela à parte.
+Exemplo: Suponha que temos uma tabela de pedidos onde a chave primária é composta por id_cliente e id_pedido. Se você armazenar o nome do cliente em cada linha da tabela de pedidos, isso viola a 2NF, pois o nome do cliente depende apenas do id_cliente, e não da chave primária completa. A solução seria separar o nome do cliente em uma tabela à parte.
 
-##### **3NF (Terceira Forma Normal)**
+### 3NF (Terceira Forma Normal)
 
 Uma tabela está em 3NF quando:
 
-* Está em 2NF.
+Está em 2NF.
 
-* Não há dependências transitivas, ou seja, atributos não-chave não devem depender de outros atributos não-chave.
+Não há dependências transitivas, ou seja, atributos não-chave não devem depender de outros atributos não-chave.
 
 Exemplo: Se você tem uma tabela onde o endereço do cliente é armazenado, e o endereço depende do nome do cliente (não diretamente da chave primária), isso viola a 3NF. Você deve separar o endereço em uma tabela separada.
 
----
+## Prática de Relacionamentos e Normalização**
 
-#### **Dia 20-21: Prática de Relacionamentos e Normalização**
+**Passo 1**: Crie um banco de dados com pelo menos 3 tabelas.
 
-* **Passo 1**: Crie um banco de dados com pelo menos 3 tabelas.
+**Passo 2**: Defina as chaves primárias e estrangeiras.
 
-* **Passo 2**: Defina as chaves primárias e estrangeiras.
+**Passo 3**: Normaliza a estrutura de dados, se necessário.
 
-* **Passo 3**: Normaliza a estrutura de dados, se necessário.
+# Consultas Avançadas
 
-Exemplo de prática:
+## Consultas Avançadas
 
-1. Crie uma tabela clientes, outra pedidos e, se necessário, uma tabela de relacionamentos, como produtos\_pedidos em um cenário de **muitos para muitos**.
-
----
-
-Com isso, você já deve estar familiarizado com a criação de tabelas relacionadas e com a normalização dos dados para evitar redundâncias.
-
-Avise-me quando terminar e vamos seguir para a **Semana 4: Consultas Avançadas**\!
-
-##### **Você disse:**
-
-proximo
-
-###### **O ChatGPT disse:**
-
-Perfeito, vamos seguir para a **Semana 4: Consultas Avançadas**\!
-
-### **Semana 4: Consultas Avançadas**
-
-#### **Dia 22-23: Joins**
+### Joins
 
 Os **joins** são usados para combinar registros de duas ou mais tabelas, com base em uma condição comum. Vamos explorar os tipos mais comuns de joins.
 
-##### **INNER JOIN**
+### INNER JOIN
 
 O **INNER JOIN** retorna apenas os registros que têm correspondência em ambas as tabelas.
 
 Exemplo: Vamos unir as tabelas clientes e pedidos, onde o id\_cliente da tabela pedidos corresponde ao id da tabela clientes:
 
+```sql
 SELECT clientes.nome, pedidos.data\_pedido  
 FROM clientes  
 INNER JOIN pedidos ON clientes.id \= pedidos.cliente\_id;
+```
 
 Esse comando vai retornar os nomes dos clientes e as datas de seus pedidos, mas apenas para os clientes que têm pedidos registrados.
 
-##### **LEFT JOIN**
+### LEFT JOIN
 
 O **LEFT JOIN** (ou **LEFT OUTER JOIN**) retorna todos os registros da tabela da esquerda (primeira tabela), e os registros correspondentes da tabela da direita (segunda tabela). Se não houver correspondência, os valores da tabela da direita serão NULL.
 
 Exemplo:
 
+```sql
 SELECT clientes.nome, pedidos.data\_pedido  
 FROM clientes  
 LEFT JOIN pedidos ON clientes.id \= pedidos.cliente\_id;
+```
 
 Esse comando retorna todos os clientes, mesmo aqueles que não têm pedidos. Para esses clientes, a coluna data\_pedido será NULL.
 
-##### **RIGHT JOIN**
+### RIGHT JOIN
 
 O **RIGHT JOIN** (ou **RIGHT OUTER JOIN**) é similar ao LEFT JOIN, mas retorna todos os registros da tabela da direita (segunda tabela), e os registros correspondentes da tabela da esquerda (primeira tabela). Se não houver correspondência, os valores da tabela da esquerda serão NULL.
 
 Exemplo:
 
+```sql
 SELECT clientes.nome, pedidos.data\_pedido  
 FROM clientes  
 RIGHT JOIN pedidos ON clientes.id \= pedidos.cliente\_id;
+```
 
 Esse comando retorna todos os pedidos, incluindo aqueles feitos por clientes que talvez não estejam mais na tabela clientes (caso tenham sido deletados, por exemplo).
 
-##### **FULL OUTER JOIN**
+### FULL OUTER JOIN
 
 O **FULL OUTER JOIN** retorna todos os registros quando há uma correspondência em uma das tabelas. Ou seja, ele retorna todos os registros das duas tabelas, e coloca NULL quando não houver correspondência.
 
 Exemplo:
 
+```sql
 SELECT clientes.nome, pedidos.data\_pedido  
 FROM clientes  
 FULL OUTER JOIN pedidos ON clientes.id \= pedidos.cliente\_id;
+```
 
 Esse comando retorna todos os clientes e todos os pedidos, independentemente de terem correspondência na outra tabela.
 
----
 
-#### **Dia 24-25: Subconsultas (Subqueries)**
+## Subconsultas (Subqueries)
 
 As **subconsultas** são consultas aninhadas dentro de outra consulta. Elas podem ser usadas em várias partes de uma consulta SQL, como na cláusula SELECT, FROM ou WHERE.
 
-##### **Subconsulta no SELECT**
+### Subconsulta no SELECT
 
 Você pode usar uma subconsulta para retornar um valor para cada linha da consulta principal.
 
 Exemplo:
 
+```sql
 SELECT nome,   
        (SELECT COUNT(\*) FROM pedidos WHERE pedidos.cliente\_id \= clientes.id) AS num\_pedidos  
 FROM clientes;
+```
 
 Esse comando retorna o nome de cada cliente e o número de pedidos que ele fez. A subconsulta conta os pedidos para cada cliente individualmente.
 
-##### **Subconsulta no WHERE**
+### Subconsulta no WHERE
 
 Você pode usar subconsultas dentro da cláusula WHERE para restringir os resultados de acordo com valores de outra consulta.
 
 Exemplo:
 
+```sql
 SELECT nome  
 FROM clientes  
 WHERE id IN (SELECT cliente\_id FROM pedidos WHERE data\_pedido \> '2025-01-01');
+```
 
 Esse comando retorna os nomes dos clientes que fizeram pedidos após 1º de janeiro de 2025\.
 
-##### **Subconsulta com EXISTS**
+### Subconsulta com EXISTS
 
 A palavra-chave **EXISTS** verifica se a subconsulta retorna algum resultado. Se retornar, a consulta externa será executada.
 
 Exemplo:
 
+```sql
 SELECT nome  
 FROM clientes  
 WHERE EXISTS (SELECT 1 FROM pedidos WHERE pedidos.cliente\_id \= clientes.id);
+```
 
 Esse comando retorna os nomes dos clientes que têm pelo menos um pedido.
 
----
-
-#### **Dia 26-28: Consultas Complexas**
+# Consultas Complexas
 
 Agora que já aprendemos os conceitos básicos de joins e subconsultas, vamos combinar esses elementos para criar consultas mais complexas.
 
-##### **Consultas com Joins e Funções Agregadas**
+## Consultas com Joins e Funções Agregadas
 
 Exemplo: Encontrar o total de pedidos feitos por cada cliente.
 
+```sql
 SELECT clientes.nome, COUNT(pedidos.id) AS total\_pedidos  
 FROM clientes  
 LEFT JOIN pedidos ON clientes.id \= pedidos.cliente\_id  
 GROUP BY clientes.nome;
+```
 
 Esse comando retorna o nome de cada cliente e o número total de pedidos feitos por ele. Se o cliente não tiver pedidos, o valor será 0\.
 
-##### **Consultas com GROUP BY e HAVING**
+## Consultas com GROUP BY e HAVING
 
 Vamos usar GROUP BY e HAVING para filtrar resultados após o agrupamento.
 
 Exemplo: Encontrar os clientes que fizeram mais de 3 pedidos:
 
+```sql
 SELECT clientes.nome, COUNT(pedidos.id) AS total\_pedidos  
 FROM clientes  
 INNER JOIN pedidos ON clientes.id \= pedidos.cliente\_id  
 GROUP BY clientes.nome  
 HAVING COUNT(pedidos.id) \> 3;
+```
 
 Esse comando retorna os nomes dos clientes que fizeram mais de 3 pedidos.
 
----
+Esses são os conceitos essenciais para criar consultas SQL avançadas usando **joins**, **subconsultas** e funções agregadas. Experimente combinar esses conceitos em suas próprias consultas!
 
-Esses são os conceitos essenciais para criar consultas SQL avançadas usando **joins**, **subconsultas** e funções agregadas. Experimente combinar esses conceitos em suas próprias consultas\!
+# Indexação e Performance
 
----
-
-Me avise quando terminar para que possamos seguir para **Semana 5: Indexação e Performance**\!
-
-##### **Você disse:**
-
-proximo
-
-###### **O ChatGPT disse:**
-
-Ótimo, vamos seguir para a **Semana 5: Indexação e Performance**\!
-
-### **Semana 5: Indexação e Performance**
-
-#### **Dia 29-30: O que são índices?**
+## O que são índices?
 
 Os **índices** são estruturas de dados usadas para melhorar a velocidade das operações de leitura no banco de dados. Eles funcionam como um índice de um livro: em vez de procurar por informações em cada linha da tabela, o índice permite localizar os dados mais rapidamente.
 
-##### **Criando um Índice**
+### Criando um Índice
 
 Você pode criar um índice em uma ou mais colunas de uma tabela. A sintaxe básica para criar um índice é:
 
-CREATE INDEX nome\_do\_indice ON nome\_da\_tabela (coluna);
+CREATE INDEX nome_do_indice ON nome_da_tabela (coluna);
 
 Exemplo: Criando um índice na coluna email da tabela clientes para melhorar a busca por e-mails:
 
-CREATE INDEX idx\_email ON clientes (email);
+CREATE INDEX idx_email ON clientes (email);
 
 Agora, quando você fizer uma consulta que envolva a coluna email, o PostgreSQL usará esse índice para encontrar os dados mais rapidamente.
 
-##### **Índice Único (Unique Index)**
+### Índice Único (Unique Index)
 
 O índice único garante que os valores na coluna ou nas colunas indexadas sejam únicos. Isso é útil quando você quer garantir que não haja duplicação de valores, como no caso de e-mails.
 
 Exemplo:
 
-CREATE UNIQUE INDEX idx\_email\_unico ON clientes (email);
+```sql
+CREATE UNIQUE INDEX idx_email_unico ON clientes (email);
+```
 
 Esse comando cria um índice que não permite valores duplicados na coluna email.
 
-#### **Dia 31-33: Analisando a Performance das Consultas com EXPLAIN**
+### Analisando a Performance das Consultas com EXPLAIN
 
 O comando EXPLAIN permite que você visualize o plano de execução de uma consulta SQL, ou seja, como o PostgreSQL irá buscar os dados para atender sua consulta. Isso é essencial para entender como suas consultas podem ser otimizadas.
 
-##### **Usando EXPLAIN**
+### Usando EXPLAIN
 
 Adicione o comando EXPLAIN antes de sua consulta para ver o plano de execução.
 
 Exemplo:
 
-EXPLAIN SELECT nome, email FROM clientes WHERE idade \> 30;
+```sql
+EXPLAIN SELECT nome, email FROM clientes WHERE idade > 30;
+```
 
 O PostgreSQL mostrará informações sobre como ele planeja executar a consulta, como o uso de índices ou a leitura sequencial de dados.
 
-##### **Interpretando o Plano de Execução**
+### Interpretando o Plano de Execução
 
 O plano de execução pode incluir os seguintes termos:
 
-* **Seq Scan**: Leitura sequencial de dados (sem uso de índice). Normalmente, isso acontece quando não há um índice disponível para a consulta.
+**Seq Scan**: Leitura sequencial de dados (sem uso de índice). Normalmente, isso acontece quando não há um índice disponível para a consulta.
 
-* **Index Scan**: Uso de um índice para buscar dados, o que é mais eficiente que a leitura sequencial.
+**Index Scan**: Uso de um índice para buscar dados, o que é mais eficiente que a leitura sequencial.
 
-* **Bitmap Index Scan**: Usa um índice em uma forma mais eficiente, especialmente em consultas complexas.
+**Bitmap Index Scan**: Usa um índice em uma forma mais eficiente, especialmente em consultas complexas.
 
-* **Join Types**: O PostgreSQL usa diferentes tipos de join, como Nested Loop, Merge Join e Hash Join.
+**Join Types**: O PostgreSQL usa diferentes tipos de join, como Nested Loop, Merge Join e Hash Join.
 
 O uso do EXPLAIN ajuda a identificar pontos onde o PostgreSQL pode estar fazendo leituras ineficientes e onde os índices podem melhorar a performance.
 
-#### **Dia 34-35: Estratégias de Particionamento de Tabelas**
+### Estratégias de Particionamento de Tabelas
 
 Quando você lida com grandes volumes de dados, pode ser interessante **particionar** suas tabelas para melhorar o desempenho. O particionamento envolve dividir uma tabela grande em várias tabelas menores (partições).
 
 Existem dois tipos principais de particionamento:
 
-* **Particionamento por faixa (Range Partitioning)**: Divide os dados em faixas de valores (por exemplo, por datas).
+**Particionamento por faixa (Range Partitioning)**: Divide os dados em faixas de valores (por exemplo, por datas).
 
-* **Particionamento por lista (List Partitioning)**: Divide os dados com base em uma lista de valores (por exemplo, por região).
+**Particionamento por lista (List Partitioning)**: Divide os dados com base em uma lista de valores (por exemplo, por região).
 
-##### **Criando uma Tabela Particionada**
+### Criando uma Tabela Particionada
 
 Exemplo: Vamos particionar uma tabela vendas por mês.
 
 1. **Criando a tabela principal** (sem dados):
 
+```sql
 CREATE TABLE vendas (  
     id SERIAL PRIMARY KEY,  
     data\_venda DATE,  
     valor DECIMAL  
 ) PARTITION BY RANGE (data\_venda);
+```
 
 2. **Criando partições**:
 
+```sql
 CREATE TABLE vendas\_2023\_01 PARTITION OF vendas  
     FOR VALUES FROM ('2023-01-01') TO ('2023-02-01');
 
 CREATE TABLE vendas\_2023\_02 PARTITION OF vendas  
     FOR VALUES FROM ('2023-02-01') TO ('2023-03-01');
+```
 
 Cada partição armazena os dados para um mês específico. Isso pode melhorar a performance de consultas que filtram dados por mês.
 
----
-
-### **Resumo da Semana 5**
-
-Nesta semana, você aprendeu:
-
-* **Índices**: Como criar e usar índices para melhorar a performance das consultas.
-
-* **EXPLAIN**: Como analisar o plano de execução de consultas para otimizar sua performance.
-
-* **Particionamento de Tabelas**: Como dividir tabelas grandes em partes menores para melhorar a performance.
-
----
-
-Avise-me quando terminar de aplicar esses conceitos, e vamos seguir para a **Semana 6: Procedimentos e Funções**\!
-
-##### **Você disse:**
-
-proximo
-
-###### **O ChatGPT disse:**
-
-Perfeito, vamos seguir para a **Semana 6: Procedimentos e Funções**\!
+# Procedimentos e Funções
 
 ### **Semana 6: Procedimentos e Funções**
 

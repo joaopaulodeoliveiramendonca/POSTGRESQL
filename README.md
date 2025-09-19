@@ -35,24 +35,24 @@ sudo apt install postgresql postgresql-contrib
 
 Após a instalação, você pode acessar o PostgreSQL pelo terminal ou pelo **pgAdmin**, uma ferramenta gráfica que facilita o gerenciamento de bancos de dados.
 
-#### **Introdução ao SQL**
+# Introdução ao SQL
 
 O SQL (Structured Query Language) é uma linguagem usada para gerenciar dados em bancos de dados relacionais. Alguns conceitos fundamentais incluem:
 
-* **Banco de dados**: Conjunto de dados organizados.
+**Banco de dados**: Conjunto de dados organizados.
 
-* **Tabela**: Estrutura de armazenamento de dados dentro de um banco de dados.
+**Tabela**: Estrutura de armazenamento de dados dentro de um banco de dados.
 
-* **Registro (ou Linha)**: Cada entrada ou item em uma tabela.
+**Registro (ou Linha)**: Cada entrada ou item em uma tabela.
 
-* **Coluna**: Cada tipo de dado em uma tabela (como nome, idade, etc.).
+**Coluna**: Cada tipo de dado em uma tabela (como nome, idade, etc.).
 
-#### **Primeiros comandos SQL:**
+# Primeiros comandos SQL:
 
 ```sql
 CREATE DATABASE: Cria um novo banco de dados.
 
-CREATE DATABASE meu\_banco\_de\_dados;
+CREATE DATABASE meu_banco_de_dados;
 
 CREATE TABLE: Cria uma nova tabela dentro de um banco de dados.
 
@@ -75,308 +75,269 @@ DROP TABLE: Exclui uma tabela do banco de dados.
 DROP TABLE usuarios;
 ```
 
-Quando terminar de copiar essas informações para o seu documento, me avise que eu continuo com o conteúdo do **Dia 3-4**. Você disse:
+# Introdução ao PostgreSQL
 
-## **O ChatGPT disse:**
+## Configuração do PostgreSQL e Conceitos Básicos de Bancos de Dados
 
-Perfeito, vamos continuar\!
-
-### **Semana 1: Introdução ao PostgreSQL**
-
-#### **Dia 3-4: Configuração do PostgreSQL e Conceitos Básicos de Bancos de Dados**
-
-#### **Configuração do PostgreSQL**
+### Configuração do PostgreSQL
 
 Uma vez que o PostgreSQL esteja instalado, você pode começar a trabalhar com ele de duas formas principais:
 
-* **pgAdmin**: Uma interface gráfica para gerenciar bancos de dados PostgreSQL, útil para quem prefere não trabalhar diretamente com comandos de terminal.
+**pgAdmin**: Uma interface gráfica para gerenciar bancos de dados PostgreSQL, útil para quem prefere não trabalhar diretamente com comandos de terminal.
 
-* **Linha de Comando (psql)**: Um terminal interativo onde você pode executar comandos SQL diretamente no PostgreSQL.
+**Linha de Comando (psql)**: Um terminal interativo onde você pode executar comandos SQL diretamente no PostgreSQL.
 
-Para usar o **pgAdmin**, basta abrir a ferramenta após a instalação e conectar-se ao servidor PostgreSQL, fornecendo o nome de usuário e senha criados durante a instalação.
+**pgAdmin**, basta abrir a ferramenta após a instalação e conectar-se ao servidor PostgreSQL, fornecendo o nome de usuário e senha criados durante a instalação.
 
-Para o **psql**, você pode iniciar o terminal no diretório onde o PostgreSQL está instalado e digitar:
+**psql**, você pode iniciar o terminal no diretório onde o PostgreSQL está instalado e digitar:
 
+```bash
 psql \-U postgres
+```
 
 Isso abrirá o terminal do PostgreSQL, onde você poderá rodar comandos SQL diretamente.
 
-#### **Conceitos Básicos de Bancos de Dados Relacionais**
+### Conceitos Básicos de Bancos de Dados Relacionais
 
 Bancos de dados relacionais organizam os dados em **tabelas** compostas por linhas e colunas. A **chave primária** (PRIMARY KEY) é usada para identificar de maneira única cada registro dentro de uma tabela, enquanto a **chave estrangeira** (FOREIGN KEY) é usada para criar um relacionamento entre duas tabelas.
 
-* **Tabela**: Estrutura de dados organizados em colunas e linhas.
+**Tabela**: Estrutura de dados organizados em colunas e linhas.
 
-* **Linha**: Cada entrada individual na tabela, representando uma instância de dados.
+**Linha**: Cada entrada individual na tabela, representando uma instância de dados.
 
-* **Coluna**: Cada tipo de dado na tabela (ex: nome, idade).
+**Coluna**: Cada tipo de dado na tabela (ex: nome, idade).
 
-* **Chave primária**: Campo (ou conjunto de campos) que identifica de maneira única uma linha em uma tabela.
+**Chave primária**: Campo (ou conjunto de campos) que identifica de maneira única uma linha em uma tabela.
 
-* **Chave estrangeira**: Campo que cria um relacionamento entre duas tabelas, apontando para a chave primária de outra tabela.
+**Chave estrangeira**: Campo que cria um relacionamento entre duas tabelas, apontando para a chave primária de outra tabela.
 
----
+# Introdução ao PostgreSQL
 
-Agora que você já copiou essas informações, me avise para continuarmos com os **Dias 5-7**.
-
-##### **Você disse:**
-
-proximo
-
-###### **O ChatGPT disse:**
-
-Vamos seguir em frente\!
-
-### **Semana 1: Introdução ao PostgreSQL**
-
-#### **Dia 5-7: Primeiros Comandos SQL**
+## Primeiros Comandos SQL
 
 Agora que você já configurou o PostgreSQL e aprendeu os conceitos básicos, vamos praticar alguns comandos SQL essenciais para manipular dados no banco.
 
-#### **Comandos SQL Essenciais:**
+### Comandos SQL Essenciais:
 
 **CREATE DATABASE**: Cria um novo banco de dados no PostgreSQL.
 
+```sql
  CREATE DATABASE nome\_do\_banco;
-
-* 
+```
 
 **CREATE TABLE**: Cria uma nova tabela no banco de dados. Aqui, vamos criar uma tabela de exemplo chamada clientes:
 
+```sql
  CREATE TABLE clientes (  
     id SERIAL PRIMARY KEY,  
     nome VARCHAR(100),  
     email VARCHAR(100),  
     data\_nascimento DATE  
 );
-
-* 
+```
 
 **INSERT INTO**: Insere dados em uma tabela. Exemplo de inserção de um registro na tabela clientes:
 
- INSERT INTO clientes (nome, email, data\_nascimento)  
+```sql
+INSERT INTO clientes (nome, email, data\_nascimento)  
 VALUES ('Maria Silva', 'maria@exemplo.com', '1985-04-12');
-
-* 
+```
 
 **SELECT**: Consulta dados de uma tabela. Vamos consultar todos os registros da tabela clientes:
 
- SELECT \* FROM clientes;  
- Esse comando vai retornar todos os dados da tabela. Você também pode usar condições para filtrar os resultados, como:
+```sql
+SELECT * FROM clientes;
+```
 
- SELECT nome, email FROM clientes WHERE nome \= 'Maria Silva';
+Esse comando vai retornar todos os dados da tabela. Você também pode usar condições para filtrar os resultados, como:
 
-* 
+```sql
+SELECT nome, email FROM clientes WHERE nome = 'Maria Silva';
+```
 
 **DROP TABLE**: Exclui uma tabela do banco de dados. Tenha cuidado ao usar esse comando, pois ele apaga permanentemente a tabela e seus dados.
 
- DROP TABLE clientes;
-
-* 
+```sql
+DROP TABLE clientes;
+```
 
 **ALTER TABLE**: Modifica a estrutura de uma tabela. Por exemplo, para adicionar uma nova coluna telefone à tabela clientes:
 
- ALTER TABLE clientes ADD COLUMN telefone VARCHAR(15);
-
-* 
-
-#### **Outros Comandos Básicos:**
+```sql
+ALTER TABLE clientes ADD COLUMN telefone VARCHAR(15);
+```
 
 **UPDATE**: Atualiza os dados de uma tabela. Exemplo de como alterar o email de um cliente:
 
- UPDATE clientes SET email \= 'novo\_email@exemplo.com' WHERE nome \= 'Maria Silva';
-
-* 
+```sql
+UPDATE clientes SET email \= 'novo\_email@exemplo.com' WHERE nome \= 'Maria Silva';
+``` 
 
 **DELETE**: Exclui registros de uma tabela. Exemplo de como excluir um cliente pelo nome:
 
- DELETE FROM clientes WHERE nome \= 'Maria Silva';
+```sql
+DELETE FROM clientes WHERE nome = 'Maria Silva';
+```
 
-* 
+# Manipulação de Dados
 
-#### **Prática:**
-
-Tente criar um banco de dados, uma tabela e realizar inserções, consultas, atualizações e exclusões. Isso vai ajudar a solidificar seu entendimento dos comandos básicos de SQL.
-
----
-
-Quando terminar, me avise e vamos continuar com o conteúdo da **Semana 2: Manipulação de Dados**\!
-
-##### **Você disse:**
-
-proximo
-
-###### **O ChatGPT disse:**
-
-Ótimo\! Vamos avançar para a **Semana 2: Manipulação de Dados**.
-
-### **Semana 2: Manipulação de Dados**
-
-#### **Dia 8-9: Comandos de Manipulação de Dados**
+## Comandos de Manipulação de Dados
 
 Aqui, vamos aprender a manipular dados dentro das tabelas do PostgreSQL com comandos mais específicos.
 
-#### **Comando UPDATE**
+#### Comando UPDATE
 
 O comando UPDATE é usado para modificar dados em uma tabela existente. Você pode alterar um ou mais campos de uma linha de acordo com uma condição.
 
 Exemplo: Atualizando o email de um cliente na tabela clientes:
 
+```sql
 UPDATE clientes  
-SET email \= 'novo\_email@exemplo.com'  
-WHERE nome \= 'Maria Silva';
+SET email = 'novo_email@exemplo.com'  
+WHERE nome = 'Maria Silva';
+```
 
 Esse comando atualiza o campo email do cliente onde o nome é "Maria Silva". A cláusula WHERE é essencial para evitar que todos os registros da tabela sejam alterados.
 
-#### **Comando DELETE**
+#### Comando DELETE
 
 O comando DELETE serve para excluir registros de uma tabela. Cuidado ao usar esse comando, pois os dados são apagados permanentemente.
 
 Exemplo: Excluindo um cliente da tabela clientes:
 
+```sql
 DELETE FROM clientes  
-WHERE nome \= 'Maria Silva';
+WHERE nome = 'Maria Silva';
+```
 
-Esse comando exclui o registro de "Maria Silva" da tabela clientes. Se você omitir a cláusula WHERE, todos os registros da tabela serão excluídos\!
+Esse comando exclui o registro de "Maria Silva" da tabela clientes. Se você omitir a cláusula WHERE, todos os registros da tabela serão excluídos!
 
-#### **Comando TRUNCATE**
+#### Comando TRUNCATE
 
 O comando TRUNCATE é usado para excluir todos os registros de uma tabela, mas sem apagar a estrutura da tabela. Diferente do DELETE, o TRUNCATE é mais rápido e não registra as exclusões de maneira detalhada.
 
 Exemplo:
 
+```sql
 TRUNCATE TABLE clientes;
+```
 
 Isso remove todos os registros da tabela clientes, mas a tabela ainda estará disponível para novos dados.
 
----
-
-#### **Dia 10-11: Filtrando Dados**
+# Filtrando Dados
 
 Agora, vamos aprender como filtrar dados de forma eficiente com a cláusula WHERE e outros operadores.
 
-##### **Filtrando com WHERE**
+## Filtrando com WHERE
 
 A cláusula WHERE permite especificar condições para selecionar apenas os registros que atendem a esses critérios.
 
 Exemplo: Encontrar todos os clientes com mais de 30 anos:
 
+```sql
 SELECT \* FROM clientes  
 WHERE idade \> 30;
+```
 
-##### **Operadores Comuns em WHERE**
+### **Operadores Comuns em WHERE**
 
 **BETWEEN**: Usado para filtrar valores dentro de um intervalo.
 
- SELECT \* FROM clientes  
+```sql
+SELECT \* FROM clientes  
 WHERE idade BETWEEN 20 AND 30;
-
-* 
+```
 
 **IN**: Filtra valores que estão dentro de uma lista específica.
 
- SELECT \* FROM clientes  
+```sql
+SELECT \* FROM clientes  
 WHERE nome IN ('Maria Silva', 'João Souza');
-
-* 
+```
 
 **LIKE**: Usado para buscar padrões em dados textuais.
 
- SELECT \* FROM clientes  
+```sql
+SELECT \* FROM clientes  
 WHERE nome LIKE 'Maria%';
-
-* 
+```
 
 **IS NULL**: Filtra registros com valores nulos.
 
- SELECT \* FROM clientes  
+```sql
+SELECT \* FROM clientes  
 WHERE telefone IS NULL;
+```
 
-* 
-
-##### **Ordenando e Limitando Resultados**
+### **Ordenando e Limitando Resultados**
 
 **ORDER BY**: Ordena os resultados em ordem crescente ou decrescente. Por padrão, a ordenação é crescente (ASC), mas você pode especificar a ordenação decrescente (DESC).
 
- SELECT \* FROM clientes  
+```sql
+SELECT \* FROM clientes  
 ORDER BY nome DESC;
-
-* 
+```
 
 **LIMIT**: Limita o número de registros retornados. Exemplo para obter apenas os 5 primeiros resultados:
 
- SELECT \* FROM clientes  
+```sql
+SELECT \* FROM clientes  
 LIMIT 5;
+```
 
-* 
-
----
-
-#### **Dia 12-14: Funções Agregadas**
+# Funções Agregadas
 
 Funções agregadas são usadas para realizar cálculos sobre um conjunto de dados, como soma, média e contagem.
 
 **COUNT()**: Conta o número de registros que atendem a uma condição.
 
- SELECT COUNT(\*) FROM clientes;
-
-* 
+```sql
+SELECT COUNT(\*) FROM clientes;
+```
 
 **SUM()**: Soma os valores de uma coluna numérica.
 
- SELECT SUM(idade) FROM clientes;
-
-* 
+```sql
+SELECT SUM(idade) FROM clientes;
+```
 
 **AVG()**: Calcula a média dos valores de uma coluna numérica.
 
- SELECT AVG(idade) FROM clientes;
-
-* 
+```sql
+SELECT AVG(idade) FROM clientes;
+```
 
 **MIN()** e **MAX()**: Retorna o menor ou maior valor de uma coluna.
 
- SELECT MIN(idade) FROM clientes;  
+```sql
+SELECT MIN(idade) FROM clientes;  
 SELECT MAX(idade) FROM clientes;
+```
 
-* 
-
-##### **Agrupando Dados com GROUP BY**
+### **Agrupando Dados com GROUP BY**
 
 O GROUP BY é usado para agrupar dados com base em uma coluna e aplicar funções agregadas.
 
 Exemplo: Contando o número de clientes por idade:
 
-SELECT idade, COUNT(\*) FROM clientes  
+```sql
+SELECT idade, COUNT(*) FROM clientes  
 GROUP BY idade;
+```
 
-##### **Filtrando Agrupamentos com HAVING**
+### **Filtrando Agrupamentos com HAVING**
 
 Após usar GROUP BY, você pode filtrar os resultados agregados usando HAVING.
 
 Exemplo: Mostrar idades que têm mais de 2 clientes:
 
-SELECT idade, COUNT(\*) FROM clientes  
+```sql
+SELECT idade, COUNT(*) FROM clientes  
 GROUP BY idade  
-HAVING COUNT(\*) \> 2;
+HAVING COUNT(*) > 2;
+```
 
----
-
-Esses são os principais comandos para manipulação de dados no PostgreSQL. Pratique criando e manipulando tabelas, filtrando e agrupando dados. Isso vai te ajudar a consolidar o conhecimento.
-
----
-
-Avise-me quando terminar e vamos passar para o conteúdo de **Semana 3: Relacionamentos e Normalização**\!
-
-##### **Você disse:**
-
-Proximo
-
-###### **O ChatGPT disse:**
-
-Vamos continuar para a **Semana 3: Relacionamentos e Normalização**.
-
-### **Semana 3: Relacionamentos e Normalização**
+# Relacionamentos e Normalização
 
 #### **Dia 15-16: Chaves Primárias e Estrangeiras**
 
